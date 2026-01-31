@@ -1,6 +1,6 @@
 # Telegram Local Archiver
 
-A high-performance, offline-first Telegram channel archiver with a premium web dashboard. Built for privacy, speed, and simplicity.
+A high-performance, offline-first Telegram channel archiver with a web dashboard. Built for privacy, speed, and simplicity.
 
 ## Key Features
 
