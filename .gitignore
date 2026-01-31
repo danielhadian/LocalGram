@@ -16,7 +16,6 @@ downloads/
 channels/
 *.log
 
-
 .DS_Store
 
 # Telethon Session
