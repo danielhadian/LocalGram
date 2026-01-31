@@ -10,7 +10,7 @@ db_path: "archive.db"
 # Supported: SOCKS5, HTTP
 # To use a proxy locally without committing to git, create 'config_local.yaml' with the same structure.
 proxy:
-  enabled: true
+  enabled: false
   type: "SOCKS5"
   host: "127.0.0.1"
   port: 10808
@@ -20,22 +20,7 @@ proxy:
 # Channel Monitoring List
 # Format: list of usernames or join links
 channels:
-  - "V2Ray_Tz"
-  - "filembad"
-  - "NetGreen_asli"
-  - "SOSkeyNET"
-  - "vmessorg"
-  - "isor1n"
-  - "meliproxyy"
-  - "configraygan"
-  - "shankamil"
-  - "VPNCUSTOMIZE"
-  - "planB_net"
-  - "mitivpn"
-  - "DigiHubAI"
-  - "BugFreeNet"
-  - "Parsashonam"
-  - "CyberNigga2"
+  - "ProxyMTProto"
 
 # Download Settings
 download_media: true
