@@ -66,9 +66,9 @@ channels:
 # 3. Media Download Settings
 download_media: true
 media_types:
-  - "photo" # Download images
-  - "video" # Download videos
-  # - "document" # Uncomment to download files
+  # - "photo"
+  # - "video"
+  - "document" # Recommended: Downloads files, including videos/images sent as files
 
 # 4. Proxy Settings
 proxy:

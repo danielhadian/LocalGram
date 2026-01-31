@@ -86,12 +86,13 @@ class Archiver:
 
                 # Backfill last 100 messages
             # Backfill last 100 messages
-                logger.info(f"Backfilling last 100 messages for {entity.username}...")
-                history = await self.client.get_messages(entity, limit=100)
-                for msg in history:
-                    await self._process_message(msg, entity, render=False)
+                # Backfill last 100 messages - DISABLED by user request for pure real-time monitoring
+                # logger.info(f"Backfilling last 100 messages for {entity.username}...")
+                # history = await self.client.get_messages(entity, limit=100)
+                # for msg in history:
+                #     await self._process_message(msg, entity, render=False)
                 
-                # Render channel once after backfill
+                # Render channel once after resolving (since backfill is disabled)
                 self._update_channel_html(db_id, entity)
                 
             except Exception as e:
@@ -158,13 +159,9 @@ class Archiver:
                     should_download = True
                 elif 'document' in allowed_types and msg.document:
                      
-                     is_video = msg.video is not None
-                     is_audio = msg.audio is not None
-                     is_voice = msg.voice is not None
-                     is_sticker = msg.sticker is not None
-                     
-                     if not is_video and not is_audio and not is_voice and not is_sticker:
-                         should_download = True
+                     # Simplified logic: If it's a document and 'document' is enabled, download it.
+                     # This covers generic files, and also videos/audio if they are sent as files.
+                     should_download = True
                 
                 if should_download:
                      media_path = await self._download_media(msg, chat_entity.username)
