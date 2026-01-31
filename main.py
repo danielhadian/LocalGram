@@ -32,9 +32,9 @@ async def main():
         archiver = Archiver(client_mgr, storage_mgr, html_builder)
         
         # Initial Index Render (in case previous run happened)
+        # Initial Index Render (in case previous run happened)
         channels = storage_mgr.get_all_channels()
-        if channels:
-            html_builder.render_index(channels)
+        html_builder.render_index(channels if channels else [])
             
         from src.server import run_server
         

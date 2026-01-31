@@ -77,13 +77,12 @@ class Archiver:
                 # self._update_channel_html(db_id, entity) -> Moved to after backfill
                 
                 # Update index immediately so user sees the channel appears
-                # Removed to prevent startup lag
-                # try:
-                #    all_channels = self.storage.get_all_channels()
-                #    if all_channels:
-                #        self.builder.render_index(all_channels)
-                # except Exception as ex:
-                #    logger.error(f"Failed to update index during loop: {ex}")
+                try:
+                   all_channels = self.storage.get_all_channels()
+                   if all_channels:
+                       self.builder.render_index(all_channels)
+                except Exception as ex:
+                   logger.error(f"Failed to update index during loop: {ex}")
 
                 # Backfill last 100 messages
             # Backfill last 100 messages
