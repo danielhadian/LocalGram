@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ channel.title }} - Archive</title>
+    <link rel="stylesheet" href="../static/style.css?v=3" />
+    <script>
+      // Auto-scroll to bottom on load
+      window.onload = function () {
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+    </script>
+  </head>
+  <body class="channel-page">
+    <a href="../index.html" class="fixed-back-button" title="Back to Menu">
+      <div class="icon-container">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <span class="back-text">Menu</span>
+    </a>
+
+    <div class="channel-container">
+      <header class="channel-header">
+        <div class="header-left">
+          <!-- Back button removed from here -->
+          <div class="header-avatar">
+            {% if channel.avatar_path %}
+            <img src="{{ channel.avatar_path }}" alt="{{ channel.title }}" />
+            {% else %}
+            <div class="avatar-placeholder">{{ channel.title[0] | upper }}</div>
+            {% endif %}
+          </div>
+          <div class="header-info">
+            <h1>{{ channel.title }}</h1>
+            <p>{{ messages|length }} messages</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="messages-container" id="messages">
+        {% for msg in messages %}
+        <div class="message" id="msg-{{ msg.telegram_id }}">
+          <!-- Media Block -->
+          {% if msg.media_path %}
+          <div class="media-content">
+            {% if msg.media_path.endswith(('.jpg', '.jpeg', '.png', '.webp')) %}
+            <img src="{{ msg.media_path }}" loading="lazy" alt="Image" />
+            {% elif msg.media_path.endswith(('.mp4', '.mov')) %}
+            <video controls preload="metadata">
+              <source src="{{ msg.media_path }}" type="video/mp4" />
+            </video>
+            {% elif msg.media_path.endswith(('.ogg', '.mp3', '.m4a', '.oga')) %}
+            <audio controls><source src="{{ msg.media_path }}" /></audio>
+            {% else %}
+            <a
+              href="{{ msg.media_path }}"
+              class="file-attachment"
+              download="{{ msg.media_path.split('/')[-1] }}"
+              target="_blank"
+            >
+              <div class="file-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+                  />
+                </svg>
+              </div>
+              <div class="file-info">
+                <div class="file-name">{{ msg.media_path.split('/')[-1] }}</div>
+                <div class="file-action">Download File</div>
+              </div>
+            </a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <!-- Text Block -->
+          {% if msg.message_text %}
+          <div class="text-content">
+            {{ msg.message_text | replace('\n', '<br />') | safe }}
+          </div>
+          {% endif %}
+
+          <!-- Metadata -->
+          <div class="message-meta">
+            <span class="time">{{ msg.date[11:16] }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <footer class="app-footer">
+        Crafted with <span class="heart">❤️</span> by Daniel.
+      </footer>
+    </div>
+  </body>
+</html>

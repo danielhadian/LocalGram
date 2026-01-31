@@ -1,0 +1,46 @@
+api_id: 17349
+api_hash: "344583e45741c457fe1862106095a5eb"
+
+# System configuration
+session_name: "anon_session"
+download_path: "downloads"
+db_path: "archive.db"
+
+# Proxy Configuration (Optional)
+# Supported: SOCKS5, HTTP
+# To use a proxy locally without committing to git, create 'config_local.yaml' with the same structure.
+proxy:
+  enabled: true
+  type: "SOCKS5"
+  host: "127.0.0.1"
+  port: 10808
+  username: ""
+  password: ""
+
+# Channel Monitoring List
+# Format: list of usernames or join links
+channels:
+  - "V2Ray_Tz"
+  - "filembad"
+  - "NetGreen_asli"
+  - "SOSkeyNET"
+  - "vmessorg"
+  - "isor1n"
+  - "meliproxyy"
+  - "configraygan"
+  - "shankamil"
+  - "VPNCUSTOMIZE"
+  - "planB_net"
+  - "mitivpn"
+  - "DigiHubAI"
+  - "BugFreeNet"
+  - "Parsashonam"
+  - "CyberNigga2"
+
+# Download Settings
+download_media: true
+media_types:
+  - "document" # Files only
+
+# Limits (0 = no limit)
+max_file_size_mb: 10

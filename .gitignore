@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv/
+env.bak/
+venv.bak/
+
+# Project specific
+archive.db
+downloads/
+channels/
+*.log
+
+
+.DS_Store
+
+# Telethon Session
+*.session

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalGram Archive</title>
+    <link rel="stylesheet" href="static/style.css?v=3" />
+  </head>
+  <body class="index-page">
+    <div class="app-container">
+      <header class="main-header">
+        <h1>LocalGram</h1>
+        <p>Offline Local Backup</p>
+
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search channels..."
+            onkeyup="filterChannels()"
+          />
+          <button
+            onclick="clearData()"
+            class="clear-btn"
+            title="Clear All Data"
+          >
+            🗑️ Clear Data
+          </button>
+        </div>
+      </header>
+
+      <div class="channel-grid" id="channelGrid">
+        {% for channel in channels %}
+        <a
+          href="channels/{{ channel.username }}.html"
+          class="channel-card"
+          data-title="{{ channel.title.lower() }}"
+          data-username="{{ channel.username.lower() }}"
+        >
+          <div class="channel-avatar">
+            {% if channel.avatar_path %}
+            <!-- index.html is in root, avatar_path is relative to root downloads/.. -->
+            <img src="{{ channel.avatar_path }}" alt="{{ channel.title }}" />
+            {% else %} {{ channel.title[0] | upper }} {% endif %}
+          </div>
+          <div class="channel-info">
+            <h2>{{ channel.title }}</h2>
+            <p>@{{ channel.username }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+      <footer class="app-footer">
+        Crafted with <span class="heart">❤️</span> by Daniel.
+      </footer>
+    </div>
+
+    <script>
+      function filterChannels() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const grid = document.getElementById("channelGrid");
+        const cards = grid.getElementsByClassName("channel-card");
+
+        for (let i = 0; i < cards.length; i++) {
+          const title = cards[i].getAttribute("data-title");
+          const username = cards[i].getAttribute("data-username");
+
+          if (title.includes(filter) || username.includes(filter)) {
+            cards[i].style.display = "flex";
+          } else {
+            cards[i].style.display = "none";
+          }
+        }
+      }
+
+      async function clearData() {
+        if (
+          !confirm(
+            "⚠️ ARE YOU SURE?\n\nThis will delete ALL archived messages, media, and channels database.\nThis action cannot be undone.",
+          )
+        ) {
+          return;
+        }
+
+        const btn = document.querySelector(".clear-btn");
+        const originalText = btn.innerText;
+        btn.innerText = "Clearing...";
+        btn.disabled = true;
+
+        try {
+          const response = await fetch("/api/clear_data", { method: "POST" });
+          const result = await response.json();
+
+          if (response.ok) {
+            alert("✅ System Reset Successful!");
+            location.reload();
+          } else {
+            alert("❌ Error: " + result.message);
+          }
+        } catch (error) {
+          alert("❌ Network Error: " + error);
+        } finally {
+          btn.innerText = originalText;
+          btn.disabled = false;
+        }
+      }
+    </script>
+  </body>
+</html>
