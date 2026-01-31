@@ -14,6 +14,24 @@ class ArchiverHandler(SimpleHTTPRequestHandler):
         # Directory to serve static files from (current dir)
         super().__init__(*args, directory=".", **kwargs)
 
+    def translate_path(self, path):
+        """
+        Security override: Prevent access to sensitive files.
+        """
+        path = super().translate_path(path)
+        rel_path = os.path.relpath(path, os.getcwd())
+        
+        # Block forbidden extensions and directories
+        if any(rel_path.endswith(ext) for ext in ['.yaml', '.py', '.db', '.log', '.git']):
+            logger.warning(f"Blocked access to sensitive file: {rel_path}")
+            return "/dev/null" # Return empty/404-like
+            
+        if "src" in rel_path.split(os.sep) or "__pycache__" in rel_path:
+             logger.warning(f"Blocked access to system directory: {rel_path}")
+             return "/dev/null"
+
+        return path
+
     def do_POST(self):
         if self.path == '/api/clear_data':
             try:

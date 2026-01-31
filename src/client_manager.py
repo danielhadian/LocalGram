@@ -46,7 +46,9 @@ class ClientManager:
             api_id, 
             api_hash,
             proxy=proxy,
-            system_version="4.16.30-vxCUSTOM"
+            system_version="4.16.30-vxCUSTOM",
+            connection_retries=None, # Infinite retries
+            retry_delay=5 # Wait 5s between retries
         )
         return self.client
 
