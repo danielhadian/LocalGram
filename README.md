@@ -6,7 +6,7 @@ A high-performance, offline-first Telegram channel archiver with a web dashboard
 
 - **Real-Time Archiving**: Instantly captures messages, media, and files from monitored channels.
 - **Offline-First**: All data is stored locally in an optimized SQLite database (wal mode enabled).
-- **Premium Web Dashboard**: A responsive, dark-mode web interface (port 8080) that mimics the native Telegram UX.
+- **Web Dashboard**: A responsive, dark-mode web interface (port 8080) that mimics the native Telegram UX.
 - **Privacy Focused**: Supports SOCKS5/HTTP proxies and stores session data securely.
 - **Smart Deduplication**: Advanced logic prevents duplicate downloads even if files are manually deleted.
 - **Zero-Dependency Server**: Uses Python's built-in http.server — no heavy web frameworks required.
