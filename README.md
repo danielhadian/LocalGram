@@ -1,5 +1,6 @@
 # Telegram Local Archiver
 
+<img width="1700" height="850" alt="Localgram" src="https://github.com/user-attachments/assets/9e00914e-08ad-48bc-b3e5-892e9c75be73" />
 A high-performance, offline-first Telegram channel archiver with a web dashboard. Built for privacy, speed, and simplicity.
 
 ## Key Features
